@@ -1,1 +1,1 @@
-# ECOPETS WIKI - V-0.0.1
+# ECOPETS WIKI - v.0.1
