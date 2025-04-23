@@ -1,0 +1,339 @@
+---
+import MainLayout from '../layouts/Layout.astro';
+import "../styles/global.css";
+
+// Índice de contenido para la página
+const tableOfContents = [
+  { id: "content-1", title: "Sección 1", depth: 1 },
+  { id: "content-2", title: "Sección 2", depth: 1 },
+  { id: "content-3", title: "Sección 3", depth: 1 },
+  { id: "content-4", title: "Sección 4", depth: 1 },
+  { id: "content-5", title: "Sección 5", depth: 1 },
+  { id: "content-6", title: "Sección 6", depth: 1 },
+  { id: "content-7", title: "Sección 7", depth: 1 },
+];
+
+// Enlaces rápidos para navegación entre secciones
+const quickLinks = [
+  { path: "/installation", label: "Instalación"  },
+  { path: "/configuration", label: "Configuración"},
+  { path: "/usage", label: "Uso" },
+  { path: "/pets", label: "Mascotas", active: true },
+];
+
+// Enlaces relacionados para esta sección específica
+const relatedLinks = [
+  { path: "/", label: "Enlace relacionado 1" },
+  { path: "/", label: "Enlace relacionado 2" },
+];
+
+// Breadcrumbs para navegación
+const breadcrumbs = [
+  { path: "/", label: "Inicio" },
+  { path: "/pets", label: "Mascotas", active: true },
+];
+
+const configInfo = [
+  { latestversion: "v2.5.1", date: "15 abril 2025" },
+  { updated: "15 abril 2025", date: "15 abril 2025" },
+];
+---
+
+<MainLayout title="Página de Ejemplo">
+
+  <div class="dark:bg-gray-800/40 py-2 px-4 mb-8 rounded-lg">
+    <div class="container max-w-6xl mx-auto">
+      <nav class="flex text-sm">
+        {breadcrumbs.map((crumb, index) => (
+          <>
+            <a 
+              href={crumb.path} 
+              class:list={[
+                "hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors", 
+                crumb.active ? "text-yellow-600 dark:text-yellow-400 font-medium" : "text-gray-600 dark:text-gray-400"
+              ]}
+            >
+              {crumb.label}
+            </a>
+            {index < breadcrumbs.length - 1 && (
+              <span class="mx-2 text-gray-500 dark:text-gray-500">/</span>
+            )}
+          </>
+        ))}
+      </nav>
+    </div>
+  </div>
+
+  <div class="container max-w-6xl mx-auto px-4">
+    
+    <!-- Navegación rápida entre secciones principales -->
+    <div class="mb-8 bg-gray-800 shadow-md rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div class="bg-gray-900 dark:bg-gray-750 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-medium text-gray-800 dark:text-gray-200">Documentación de Ejemplo</h2>
+      </div>
+      <div class="flex flex-wrap gap-1 p-1">
+        {quickLinks.map(link => (
+          <a 
+            href={link.path}
+            class:list={[
+              "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+              link.active 
+                ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800"
+                : "hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300"
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Barra lateral con índice y enlaces -->
+      <div class="md:w-64 lg:w-72 flex-shrink-0 order-2 md:order-1">
+
+        <!-- Tabla de contenidos -->
+        <div class="sticky top-20 space-y-6">
+          <div class="bg-gray-800 shadow-md rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div class="bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="font-medium text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+                Contenido de esta página
+              </h3>
+            </div>
+            <nav class="p-2">
+              <ul class="space-y-1 text-sm">
+                {tableOfContents.map((item) => (
+                  <li>
+                    <a 
+                      href={`#${item.id}`}
+                      class:list={[
+                        "block py-1.5 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors",
+                        "text-gray-700 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400",
+                        item.depth > 1 ? `ml-${(item.depth-1)*3}` : ""
+                      ]}
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          <!-- Enlaces relacionados -->
+          <div class="bg-gray-800 shadow-md rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div class="bg-gray-900 bg-gray-750 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="font-medium text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                Enlaces relacionados
+              </h3>
+            </div>
+            <nav class="p-2">
+              <ul class="space-y-1 text-sm">
+                {relatedLinks.map((link) => (
+                  <li>
+                    <a 
+                      href={link.path}
+                      class="block py-1.5 px-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="flex-1 order-1 md:order-2 min-w-0">
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div class="p-6 lg:p-8">
+            <header class="mb-8">
+              <h1 id="inicio" class="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">Título Principal</h1>
+              <p class="text-gray-600 dark:text-gray-400 text-lg">
+                Este es un texto de ejemplo para la sección principal. Puedes personalizarlo según tus necesidades.
+              </p>
+            </header>
+            
+            <!-- Sección de ejemplo -->
+            <section id="content-1" class="mb-10">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Sección de Ejemplo</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">Este es un texto de ejemplo para esta sección. Puedes agregar más contenido aquí.</p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+
+<script is:inline>
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const collapsibles = document.querySelectorAll('.collapsible-toggle');
+    
+    collapsibles.forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.closest('div').nextElementSibling;
+        const icon = button.querySelector('svg');
+      
+
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const tocItem = document.querySelector(`a[href="#${id}"]`);
+        
+        if (entry.isIntersecting && tocItem) {
+          document.querySelectorAll('.table-of-contents a').forEach(item => {
+            item.classList.remove('text-yellow-600', 'dark:text-yellow-400', 'font-medium');
+            item.classList.add('text-gray-700', 'dark:text-gray-300');
+          });
+          
+          tocItem.classList.remove('text-gray-700', 'dark:text-gray-300');
+          tocItem.classList.add('text-yellow-600', 'dark:text-yellow-400', 'font-medium');
+        }
+      });
+    }, observerOptions);
+    
+
+    document.querySelectorAll('h2[id], h3[id]').forEach(header => {
+      observer.observe(header);
+    });
+    
+// Función para copiar código
+const codeSections = document.querySelectorAll('pre code');
+codeSections.forEach(section => {
+  const wrapper = section.parentNode;
+  const copyButton = document.createElement('button');
+
+
+  copyButton.style.position = 'absolute';
+  copyButton.style.top = '0.5rem';
+  copyButton.style.right = '0.5rem';
+  copyButton.style.padding = '0.4rem';
+  copyButton.style.backgroundColor = '#374151';
+  copyButton.style.border = '1px solid #4B5563';
+  copyButton.style.borderRadius = '0.5rem';
+  copyButton.style.color = '#D1D5DB';
+  copyButton.style.display = 'flex';
+  copyButton.style.alignItems = 'center';
+  copyButton.style.justifyContent = 'center';
+  copyButton.style.cursor = 'pointer';
+  copyButton.style.transition = 'background-color 0.2s ease';
+  copyButton.style.zIndex = '10';
+
+  copyButton.onmouseover = () => copyButton.style.backgroundColor = '#4B5563'; 
+  copyButton.onmouseleave = () => copyButton.style.backgroundColor = '#374151';
+
+  const copyIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-2 12H10a2 2 0 01-2-2V8a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2z" />
+    </svg>
+    
+  `;
+
+  const checkIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="#10B981" d="M5 13l4 4L19 7" />
+    </svg>
+  `;
+
+  copyButton.innerHTML = copyIcon;
+
+
+  copyButton.addEventListener('click', () => {
+    navigator.clipboard.writeText(section.textContent);
+    copyButton.innerHTML = checkIcon;
+    setTimeout(() => {
+      copyButton.innerHTML = copyIcon;
+    }, 2000);
+  });
+
+  wrapper.style.position = 'relative';
+  wrapper.appendChild(copyButton);
+});
+
+    
+  });
+</script>
+
+<style>
+  /* Estilo para elementos */
+  .collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .collapsible-toggle svg {
+    transition: transform 0.3s;
+  }
+  
+
+  pre {
+    position: relative;
+    margin: 0;
+  }
+  
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.875rem;
+  }
+  
+  /* Estilo para la tabla de contenidos en móvil */
+  @media (max-width: 768px) {
+    .sticky {
+      position: relative;
+      top: 0;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Estilos para código embebido */
+  :not(pre) > code {
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    background-color: rgba(209, 213, 219, 0.2);
+    font-size: 0.875em;
+  }
+  
+  .dark :not(pre) > code {
+    background-color: rgba(55, 65, 81, 0.4); 
+  }
+  
+  /* Estilos para botones */
+  button:focus {
+    outline: 2px solid rgba(245, 158, 11, 0.5);
+    outline-offset: 2px;
+  }
+  
+</style>

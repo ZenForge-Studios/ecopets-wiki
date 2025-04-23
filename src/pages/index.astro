@@ -1,0 +1,124 @@
+---
+import MainLayout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import "../styles/global.css";
+
+const documentationCards = [
+  {
+    title: "Instalación",
+    description: "Guía completa para instalar el plugin en tu servidor",
+    href: "/installation",
+    icon: "download"
+  },
+  {
+    title: "Configuración",
+    description: "Personaliza EcoPets para tu servidor",
+    href: "/configuration",
+    icon: "settings"
+  },
+  {
+    title: "Uso",
+    description: "Cómo usar todas las funciones del plugin",
+    href: "/usage",
+    icon: "cursor"
+  },
+  {
+    title: "Mascotas",
+    description: "Listado completo de mascotas disponibles",
+    href: "/pets",
+    icon: "paw"
+  }
+];
+
+// Mapa de iconos SVG
+const iconMap = {
+  download: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`,
+  settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
+  cursor: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"></path><path d="M12 4v16"></path></svg>`,
+  paw: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg>`,
+  book: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`,
+  arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>`
+};
+---
+
+<MainLayout title="Inicio">
+  <section class="relative py-16 md:py-24 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+
+      <div class="hidden md:block absolute top-20 left-30 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
+      <div class="hidden md:block absolute bottom-20 right-30 w-96 h-96 bg-yellow-600/10 rounded-full blur-3xl"></div>
+    </div>
+  
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <!-- Badge destacado -->
+        <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-400/30 mb-6 animate-pulse">
+          <span class="text-yellow-400 text-xs sm:text-sm font-semibold tracking-wider uppercase">✨ Nueva Versión 2.5</span>
+        </div>
+  
+        <!-- Título principal -->
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+          <span class="block">Potencia tu Servidor con</span>
+          <span class="block bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">EcoPets</span>
+        </h1>
+  
+        <!-- Descripción -->
+        <p class="max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
+          El sistema de mascotas sostenible más avanzado para Minecraft, con +50 criaturas únicas, 
+          mecánicas ecológicas y una economía circular integrada.
+        </p>
+  
+        <!-- Estadísticas destacadas -->
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-12">
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg px-4 sm:px-6 py-4 min-w-[120px] sm:min-w-[180px] transition-all hover:border-yellow-500/50 hover:bg-gray-800/70">
+            <div class="text-2xl sm:text-3xl font-bold text-yellow-400">50+</div>
+            <div class="text-xs sm:text-sm text-gray-400">Mascotas Únicas</div>
+          </div>
+
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg px-4 sm:px-6 py-4 min-w-[120px] sm:min-w-[180px] transition-all hover:border-yellow-500/50 hover:bg-gray-800/70">
+            <div class="text-2xl sm:text-3xl font-bold text-yellow-400">100%</div>
+            <div class="text-xs sm:text-sm text-gray-400">Configurable</div>
+          </div>
+        </div>
+  
+        <!-- Banner -->
+        <div class="group relative max-w-5xl mx-auto bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-1 shadow-xl mb-12 overflow-hidden border border-gray-700 hover:border-yellow-400 transition-all duration-500">
+          <div class="relative rounded-xl overflow-hidden">
+            <img 
+              src="/epa-banner.png" 
+              alt="EcoPets - Sistema de Mascotas Sostenible" 
+              class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent"></div>
+          </div>
+
+        </div>
+  
+        <!-- Botones de acción -->
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/installation" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 text-base font-semibold rounded-lg bg-yellow-500 hover:bg-yellow-600 text-gray-900 shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+            <span class="w-5 h-5">
+              <Fragment set:html={iconMap.download} />
+            </span>
+            Descargar Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 text-white">Documentación Completa</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {documentationCards.map(card => (
+        <Card 
+          title={card.title} 
+          description={card.description}
+          href={card.href}
+          icon={card.icon}
+          iconMap={iconMap}
+        />
+      ))}
+    </div>
+  </section>
+</MainLayout>
